@@ -1,6 +1,7 @@
 const msgEl = document.getElementById("msg");
 
 let randomNumber = getRandomNumber();
+console.log(randomNumber);
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -13,6 +14,7 @@ function onSpeak(e) {
   const msg = e.results[0][0].transcript;
   // console.log(msg);
   writeMessage(msg);
+  checkNumber(msg);
 }
 
 function writeMessage(msg) {
@@ -20,6 +22,32 @@ function writeMessage(msg) {
     <div>You said: </div>
     <span class="box">${msg}</span>
   `;
+}
+
+function checkNumber(msg) {
+  const num = +msg;
+  console.log(num);
+
+  if (Number.isNaN(num)) {
+    msgEl.innerHTML = `<div>This is not a valid number.</div>`;
+    return;
+  }
+
+  if (num < 1 || num > 100) {
+    msgEl.innerHTML += `<div>Number must be between 1 and 100.</div>`;
+    return;
+  }
+
+  if (num === randomNumber) {
+    document.body.innerHTML = `
+      <h2>Congrats! You guessed the nuumber <br/> <br/> It is: ${num}</h2>
+      <button class="play-again" id="play-again">Play Again</button>
+    `;
+  } else if (num > randomNumber) {
+    msgEl.innerHTML = `<div>Go Lower...</div>`;
+  } else {
+    msgEl.innerHTML = `<div>Go Higher...</div>`;
+  }
 }
 
 function getRandomNumber() {
