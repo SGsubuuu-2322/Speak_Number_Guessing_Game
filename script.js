@@ -44,9 +44,9 @@ function checkNumber(msg) {
       <button class="play-again" id="play-again">Play Again</button>
     `;
   } else if (num > randomNumber) {
-    msgEl.innerHTML = `<div>Go Lower...</div>`;
+    msgEl.innerHTML += `<div>Go Lower...</div>`;
   } else {
-    msgEl.innerHTML = `<div>Go Higher...</div>`;
+    msgEl.innerHTML += `<div>Go Higher...</div>`;
   }
 }
 
@@ -56,3 +56,11 @@ function getRandomNumber() {
 
 // console.log(recognition);
 recognition.addEventListener("result", onSpeak);
+
+recognition.addEventListener("end", () => recognition.start());
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.id === "play-again") {
+    window.location.reload();
+  }
+});
