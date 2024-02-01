@@ -10,7 +10,8 @@ let recognition = new window.SpeechRecognition();
 recognition.start();
 
 function onSpeak(e) {
-  console.log(e);
+  const msg = e.results[0][0].transcript;
+  console.log(msg);
 }
 
 function getRandomNumber() {
