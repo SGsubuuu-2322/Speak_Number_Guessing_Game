@@ -11,7 +11,15 @@ recognition.start();
 
 function onSpeak(e) {
   const msg = e.results[0][0].transcript;
-  console.log(msg);
+  // console.log(msg);
+  writeMessage(msg);
+}
+
+function writeMessage(msg) {
+  msgEl.innerHTML = `
+    <div>You said: </div>
+    <span class="box">${msg}</span>
+  `;
 }
 
 function getRandomNumber() {
